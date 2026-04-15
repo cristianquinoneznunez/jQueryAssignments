@@ -1,0 +1,96 @@
+body {
+  background-color: #8fbc8f;
+}
+
+#lgImg {
+  float: left;
+  margin: 0 1em 1em;
+  padding: 0 1em;
+}
+
+.flower {
+  width: 100%;
+}
+
+table {
+  width: 80%;
+  margin: 0 auto;
+}
+
+#details {
+  clear: left
+}
+
+#gallery {
+  clear: left;
+  display: flex;
+}
+
+#gallery figure {
+  float: left;
+  margin: .5em;
+  width: 250px;
+}
+
+#desc figure {
+  float: left;
+  padding: 1em;
+  margin: 1em;
+  max-width: 35%;
+  width: 300px;
+}
+
+figcaption {
+  color: yellow;
+  font-size: 1.75vw;
+  font-weight: bold;
+  text-align: center;
+}
+
+hr {
+  clear: left;
+}
+
+.rating {
+  display: inline-block;
+  float: right;
+}
+
+.add {
+  padding: .15em .25em;
+  display: block;
+  width: 6em;
+  text-align: center;
+  margin: 0 auto;
+  background-color: cornsilk;
+  border: medium double #8fbc8f;
+  border-radius: 15px;
+  box-shadow: 5px 5px 5px gray;
+  color: darkgreen;
+  font-weight: bold;
+  float: left;
+}
+
+.del {
+  padding: .1em .5em;
+  text-align: center;
+  margin: 0 auto;
+  background-color: cornsilk;
+  border: thin solid #8fbc8f;
+  border-radius: 15px;
+  color: darkgreen;
+  font-size: .75em;
+}
+
+.wrapper {
+  border: thin #8fbc8f solid;
+  background-color: cornsilk;
+  border-radius: 15px;
+  padding: .5em 1em;
+  text-align: center;
+}
+
+#cart li {
+  display: block;
+  list-style-type: none;
+}
