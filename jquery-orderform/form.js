@@ -9,7 +9,7 @@ $(document).ready(function () {
     }
 
     function isEmail(value) {
-        let regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        var regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         return regex.test(value);
     }
 
@@ -31,22 +31,22 @@ $(document).ready(function () {
     });
 
     $("#zip").blur(function () {
-        let v = $(this).val();
+        var v = $(this).val();
         if (isBlank(v)) $("#zipErr").text("Required");
         else if (!isZip(v)) $("#zipErr").text("Must be 5 digits");
         else $("#zipErr").text("");
     });
 
     $("#email").blur(function () {
-        let v = $(this).val();
+        var v = $(this).val();
         if (isBlank(v)) $("#emailErr").text("Required");
         else if (!isEmail(v)) $("#emailErr").text("Invalid email");
         else $("#emailErr").text("");
     });
 
     $("#email2").blur(function () {
-        let v1 = $("#email").val();
-        let v2 = $("#email2").val();
+        var v1 = $("#email").val();
+        var v2 = $("#email2").val();
         if (v2 !== v1) $("#email2Err").text("Emails must match");
         else $("#email2Err").text("");
     });
@@ -60,7 +60,7 @@ $(document).ready(function () {
     });
 
     $("#shipzip").blur(function () {
-        let v = $(this).val();
+        var v = $(this).val();
         if (isBlank(v)) $("#shipzipErr").text("Required");
         else if (!isZip(v)) $("#shipzipErr").text("Must be 5 digits");
         else $("#shipzipErr").text("");
@@ -86,8 +86,7 @@ $(document).ready(function () {
             var index = $(this).attr("id");
             var qty = parseInt($(this).val());
 
-            if (isNaN(qty)) 
-                qty = 0;
+            if (isNaN(qty)) qty = 0;
 
             var price = parseFloat($("#price" + index).text());
             var total = qty * price;
@@ -106,9 +105,8 @@ $(document).ready(function () {
         $("#tax").text(tax.toFixed(2));
 
         var shipping = 10;
-        if (shipState === "TX") 
-            shipping = 5;
-        else if (shipState === "CA" || shipState === "NY") 
+        if (shipState === "Texas") shipping = 5;
+        else if (shipState === "California" || shipState === "New York") 
             shipping = 20;
 
         $("#ship").text(shipping.toFixed(2));
