@@ -1,23 +1,22 @@
 $(document).ready(function () {
 
-   //cursor on name
+    //cursor on name
     $("#name").focus();
 
-    // validation functions
-    function isBlank(value) {
-        return $.trim(value).length === 0;
+    //validation functions
+    function isBlank(v) {
+        return $.trim(v).length === 0;
     }
 
-    function isEmail(value) {
-        var regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        return regex.test(value);
+    function isEmail(v) {
+        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
     }
 
-    function isZip(value) {
-        return /^\d{5}$/.test(value);
+    function isZip(v) {
+        return /^\d{5}$/.test(v);
     }
 
-    //form validations
+    //field validations
     $("#name").blur(function () {
         $("#nameErr").text(isBlank($(this).val()) ? "Required" : "");
     });
@@ -47,8 +46,7 @@ $(document).ready(function () {
     $("#email2").blur(function () {
         var v1 = $("#email").val();
         var v2 = $("#email2").val();
-        if (v2 !== v1) $("#email2Err").text("Emails must match");
-        else $("#email2Err").text("");
+        $("#email2Err").text(v1 !== v2 ? "Emails must match" : "");
     });
 
     $("#shipaddr").blur(function () {
@@ -66,18 +64,8 @@ $(document).ready(function () {
         else $("#shipzipErr").text("");
     });
 
-    // copy address function
-    $("#copy").change(function () {
-        if (this.checked) {
-            $("#shipaddr").val($("#address").val());
-            $("#shipcity").val($("#city").val());
-            $("#shipzip").val($("#zip").val());
-            $("#shipstate").val($("#state").val());
-        }
-    });
-
-    //order calculations
-    $(".qty").blur(function () {
+    // calculator function
+    function calculateTotals() {
 
         var orderTotal = 0;
 
@@ -99,27 +87,43 @@ $(document).ready(function () {
         
         $("#subt").text(orderTotal.toFixed(2));
 
-        
+        // Tax
         var shipState = $("#shipstate").val();
         var tax = (shipState === "TX") ? orderTotal * 0.08 : 0;
         $("#tax").text(tax.toFixed(2));
 
+        // Shipping
         var shipping = 10;
-        if (shipState === "Texas") shipping = 5;
-        else if (shipState === "California" || shipState === "New York") 
-            shipping = 20;
+        if (shipState === "TX") shipping = 5;
+        else if (shipState === "CA" || shipState === "NY") shipping = 20;
 
         $("#ship").text(shipping.toFixed(2));
 
+        // Grand total
         var grand = orderTotal + tax + shipping;
         $("#gTotal").text(grand.toFixed(2));
+    }
+
+    // copy address function
+    $("#copy").change(function () {
+        if (this.checked) {
+            $("#shipaddr").val($("#address").val());
+            $("#shipcity").val($("#city").val());
+            $("#shipzip").val($("#zip").val());
+            $("#shipstate").val($("#state").val());
+        }
+        calculateTotals();
     });
 
-    //final validation 
+    // changing quantity recalculates totals
+    $(".qty").blur(calculateTotals);
+
+    //state change recalculates totals
+    $("#shipstate").change(calculateTotals);
+
+    // final validation
     $("#order").submit(function (e) {
-
-        $(".qty").blur(); // recalc totals
-
+        calculateTotals();
         $("#name").blur();
         $("#address").blur();
         $("#city").blur();
