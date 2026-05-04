@@ -87,19 +87,19 @@ $(document).ready(function () {
         
         $("#subt").text(orderTotal.toFixed(2));
 
-        // Tax
+        
         var shipState = $("#shipstate").val();
         var tax = (shipState === "TX") ? orderTotal * 0.08 : 0;
         $("#tax").text(tax.toFixed(2));
 
-        // Shipping
+       
         var shipping = 10;
         if (shipState === "TX") shipping = 5;
         else if (shipState === "CA" || shipState === "NY") shipping = 20;
 
         $("#ship").text(shipping.toFixed(2));
 
-        // Grand total
+        
         var grand = orderTotal + tax + shipping;
         $("#gTotal").text(grand.toFixed(2));
     }
@@ -124,10 +124,10 @@ $(document).ready(function () {
     // final validation
     $("#order").submit(function (e) {
 
-    // Recalculate totals
+    // recalculate totals
     calculateTotals();
 
-    // Trigger all blur validations
+    // blur validations 
     $("#name").blur();
     $("#address").blur();
     $("#city").blur();
