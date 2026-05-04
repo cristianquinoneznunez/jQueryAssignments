@@ -123,17 +123,38 @@ $(document).ready(function () {
 
     // final validation
     $("#order").submit(function (e) {
-        calculateTotals();
-        $("#name").blur();
-        $("#address").blur();
-        $("#city").blur();
-        $("#zip").blur();
-        $("#email").blur();
-        $("#email2").blur();
-        $("#shipaddr").blur();
-        $("#shipcity").blur();
-        $("#shipzip").blur();
 
+    // Recalculate totals
+    calculateTotals();
+
+    // Trigger all blur validations
+    $("#name").blur();
+    $("#address").blur();
+    $("#city").blur();
+    $("#zip").blur();
+    $("#email").blur();
+    $("#email2").blur();
+    $("#shipaddr").blur();
+    $("#shipcity").blur();
+    $("#shipzip").blur();
+
+    // -------------------------------
+    // NEW RULE: Prevent submit if all quantities are empty
+    // -------------------------------
+    var allZero = true;
+
+    $(".qty").each(function () {
+        var q = parseInt($(this).val());
+        if (!isNaN(q) && q > 0) {
+            allZero = false;
+        }
+    });
+
+    if (allZero) {
+        e.preventDefault();
+        $("#orderErr").text("Please enter at least one quantity.");
+        return;
+    }
         //error check
         var errors = $(".error").filter(function () {
             return $(this).text().length > 0;
