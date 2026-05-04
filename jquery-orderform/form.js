@@ -138,9 +138,7 @@ $(document).ready(function () {
     $("#shipcity").blur();
     $("#shipzip").blur();
 
-    // -------------------------------
-    // NEW RULE: Prevent submit if all quantities are empty
-    // -------------------------------
+    //zero quantity check
     var allZero = true;
 
     $(".qty").each(function () {
